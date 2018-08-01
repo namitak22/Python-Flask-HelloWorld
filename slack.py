@@ -4,15 +4,10 @@ import time
 import re
 from slackclient import SlackClient
 
-sc = SlackClient('xoxp-2184481876-229250004484-407832682642-9ed4876bf2e09877011ef7f7ad0c0733')
-
-sc.api_call(
-  "chat.postMessage",
-  channel="spotlight",
-  text="Hello from Python! :tada:"
-)
 # instantiate Slack client
-slack_client = SlackClient('xoxp-2184481876-229250004484-407832682642-9ed4876bf2e09877011ef7f7ad0c0733')
+sc = SlackClient('xoxb-2184481876-407596870004-uXy8LY2YXiKI4iEPzJ0WD5vc')
+slack_client = SlackClient('xoxb-2184481876-407596870004-uXy8LY2YXiKI4iEPzJ0WD5vc')
+
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
 
@@ -20,6 +15,7 @@ starterbot_id = None
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+
 
 def parse_bot_commands(slack_events):
     """
@@ -60,7 +56,8 @@ def handle_command(command, channel):
     default_response = "Not sure what you mean. Try *{}*.".format(EXAMPLE_COMMAND)
 
     # Finds and executes the given command, filling in response
-    response = None
+    #response = None
+    
     # This is where you start to implement more commands!
     if command.startswith(EXAMPLE_COMMAND):
         response = "Sure...write some more code then I can do that!"
@@ -84,3 +81,17 @@ if __name__ == "__main__":
             time.sleep(RTM_READ_DELAY)
     else:
         print("Connection failed. Exception traceback printed above.")
+
+
+        # The endpoint Slack will send the user's menu selection to
+@app.route("/hello", methods=["POST"])
+def message_actions():
+
+    # Parse the request payload
+    form_json = json.loads(request.form["payload"])
+
+    return make_response("Hi Nam", 200)
+
+    #!flask/bin/python
+from app import app
+app.run(debug=True)
